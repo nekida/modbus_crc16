@@ -1,8 +1,4 @@
 // MODBUS
-#include <stdint.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <string.h>
 #include "modbus_crc16.h"
 
 #pragma data_alignment = 4 
@@ -64,12 +60,9 @@ uint16_t get_modbus_crc16 (uint8_t *buf, uint16_t len)
     uchCRCHi = 0xFF; 
     uchCRCLo = 0xFF; 
     while (len--) {
-        //uIndex = uchCRCHi ^ *buf++; 
-        //uchCRCLo = uchCRCLo ^ auchCRCHi[uIndex];
-		//uchCRCHi = auchCRCLo[uIndex];
-		uIndex = uchCRCLo ^ *buf++; 
-		uchCRCLo = uchCRCHi ^ auchCRCHi[uIndex];
-		uchCRCHi = auchCRCLo[uIndex];
+		uIndex 		= uchCRCLo ^ *buf++; 
+		uchCRCLo	= uchCRCHi ^ auchCRCHi[uIndex];
+		uchCRCHi 	= auchCRCLo[uIndex];
     }
     return (uchCRCHi << 8 | uchCRCLo);
 }
